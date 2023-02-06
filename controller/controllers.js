@@ -32,11 +32,12 @@ exports.student_detail_submit = async function(req,res){
     if(studentdata){
         res.json({success:false,message:"Student with this email already has submitted the resume"})
     }else{
+        console.log("req files"+JSON.stringify(req.files))
     const student = new Student({
         name:name,
         phone:phone,
         email:email,
-        resume:req.files[0].path
+        resume:req.files[0].filename
     })
     student.save( err =>{
         if(err){
@@ -64,3 +65,16 @@ exports.student_list = async function(req,res){
     
 }
 
+exports.getfile = function(req,res){
+    console.log("get file method")
+    let path = req.query.path
+    // let url = req.protocol + "://" + req.get('host')+"/data/"+path+".pdf"
+    // console.log('url '+url)
+   try{
+    res.download(__dirname+"/data/"+path)
+   }catch(e){
+    console.log("err")
+    res.json({success:false})
+   }
+
+}

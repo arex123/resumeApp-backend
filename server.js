@@ -9,31 +9,14 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded())
 // app.use(fileUpload());
-
+console.log("12")
 app.use(cors())
-app.use(express.static("files"))
 
-// var storage = multer.diskStorage({
-//     destination:function(req,file,cb){
-//         cb(null,'uploads/')
-//     },
-//     filename:function(req,file,cb){
-//         let ext = path.extname(file.originalname)
-//         cb(null,Date.now()+ext)
-//     }
-// })
+// app.use(express.static("./"))
+// app.use(express.static("./data"))
+// express.static('./data', { maxAge: '1d' }),
 
-// app.use(multer({
-//     destination:function(req,file,cb){
-//         cb(null,'./uploads')
-//     },
-//     filename:function(req,file,cb){
-//         let ext = path.extname(file.originalname)
-//         cb(null,Date.now()+ext)
-//     }
-// }).any())
-// app.use(multer({dest:'./uploads'}).any());
-app.use(multer({ dest: __dirname + '/data/' }).any())
+app.use(multer({ dest: __dirname + '/controller/data/' }).any())
 
 mongoose.connect(process.env.mongoURL,{
      useNewUrlParser: true, useUnifiedTopology: true 
